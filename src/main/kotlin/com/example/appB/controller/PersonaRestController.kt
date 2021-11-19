@@ -20,17 +20,6 @@ class PersonaRestController {
     @Autowired
     lateinit var webClient: WebClient
 
-    /*
-    @GetMapping("/get")
-    fun get(): List<Persona>? {
-        val persona = webClient
-            .get()
-            .uri("/api/v1/personas/findAll")
-            .retrieve()
-            .bodyToFlux<Persona>()
-        return persona.collectSortedList().block()
-    }*/
-
     @GetMapping("/get")
     fun get(): ResponseEntity<List<Persona>> {
         val client = webClient
