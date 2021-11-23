@@ -1,4 +1,3 @@
 package com.example.appB.exceptions
 
-class GenericException(message: String?): RuntimeException(message) {
-}
+data class GenericException(val code: Int ,override val message: String?): RuntimeException(message)
