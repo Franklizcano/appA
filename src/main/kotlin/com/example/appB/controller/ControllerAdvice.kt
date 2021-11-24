@@ -3,19 +3,13 @@ package com.example.appB.controller
 import com.example.appB.exceptions.BadRequestException
 import com.example.appB.exceptions.GenericException
 import com.example.appB.exceptions.NotFoundException
-import com.example.appB.model.Persona
-import com.example.appB.model.dto.ErrorResponse
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.context.request.WebRequest
-import org.springframework.web.reactive.function.client.ClientResponse
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
-import reactor.core.publisher.Mono
 import java.time.LocalDateTime
-import java.util.*
 
 @RestControllerAdvice
 class ControllerAdvice: ResponseEntityExceptionHandler() {
