@@ -1,7 +1,7 @@
 package com.example.appB.controller
 
 import com.example.appB.exceptions.BadRequestException
-import com.example.appB.exceptions.GenericException
+import com.example.appB.exceptions.BusinessException
 import com.example.appB.exceptions.NotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -26,8 +26,8 @@ class ControllerAdvice: ResponseEntityExceptionHandler() {
         return ResponseEntity(error, HttpStatus.BAD_REQUEST)
     }
 
-    @ExceptionHandler(GenericException::class)
-    fun handle(exception: GenericException, webRequest: WebRequest): ResponseEntity<ErrorMessage> {
+    @ExceptionHandler(BusinessException::class)
+    fun handle(exception: BusinessException, webRequest: WebRequest): ResponseEntity<ErrorMessage> {
         val error = ErrorMessage(exception.code, exception.message!!, webRequest.getDescription(false), LocalDateTime.now())
         return ResponseEntity(error, HttpStatus.valueOf(exception.code))
     }

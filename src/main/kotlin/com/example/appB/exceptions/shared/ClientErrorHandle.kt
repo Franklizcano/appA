@@ -1,7 +1,7 @@
 package com.example.appB.exceptions.shared
 
 import com.example.appB.exceptions.ClientServerException
-import com.example.appB.exceptions.GenericException
+import com.example.appB.exceptions.BusinessException
 import com.example.appB.model.Persona
 import com.example.appB.model.dto.ErrorResponse
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
@@ -25,16 +25,13 @@ fun handle200(response: ClientResponse): Mono<Persona> {
 }
 
 fun handle4xx(response: ClientResponse): Mono<Persona> {
-    response.bodyToMono(ErrorResponse::class.java)
+    return response.bodyToMono(ErrorResponse::class.java)
         .doOnNext { log.error { "Error when invoking external service: ${it.message}" } }
-
-    throw GenericException(response.rawStatusCode(), "Hemos detectado un error en la consulta")
+        .map { throw BusinessException(it.code, it.message) }
 }
 
 fun handle5xx(response: ClientResponse): Mono<Persona> {
-    response
-        .bodyToMono(ErrorResponse::class.java)
+    return response.bodyToMono(ErrorResponse::class.java)
         .doOnNext { log.error { "Error when invoking external service: ${it.message}" } }
-
-    throw ClientServerException("Hemos detectado un error interno del servidor")
+        .map { throw ClientServerException(it.code, it.message) }
 }

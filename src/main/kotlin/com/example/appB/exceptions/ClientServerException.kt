@@ -1,3 +1,3 @@
 package com.example.appB.exceptions
 
-class ClientServerException(message: String?): RuntimeException(message)
+data class ClientServerException(val code: Int, override val message: String?): RuntimeException(message)
